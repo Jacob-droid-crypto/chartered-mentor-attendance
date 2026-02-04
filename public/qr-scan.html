@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+  <head>
+    <title>QR Attendance Scan</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 40px;
+      }
+      h2 {
+        color: #0b5ed7;
+      }
+      #status {
+        margin-top: 20px;
+        font-size: 18px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>Chartered Mentor Attendance</h2>
+    <p id="status">Processing QR scan...</p>
+
+    <script>
+      const studentId = localStorage.getItem("studentId");
+
+      if (!studentId) {
+        document.getElementById("status").innerText =
+          "Please login first on this device";
+        throw new Error("Student not logged in");
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      const qrValue = params.get("qr");
+
+      if (!qrValue) {
+        document.getElementById("status").innerText = "Invalid QR code";
+        throw new Error("QR missing");
+      }
+
+      fetch("http://192.168.1.36:5000/student/scan-qr", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          studentId,
+          qrValue,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          document.getElementById("status").innerText = data.message;
+        })
+        .catch(() => {
+          document.getElementById("status").innerText =
+            "Server error while marking attendance";
+        });
+    </script>
+  </body>
+</html>

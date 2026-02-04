@@ -1,0 +1,164 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  min-height: 100vh;
+
+  /* Background image */
+  background:
+    linear-gradient(rgba(234, 242, 255, 0.85), rgba(234, 242, 255, 0.85)),
+    url("../assets/bg.jpg");
+
+  background-size: cover;
+  background-position: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Main card */
+.login-container {
+  width: 380px;
+  padding: 30px 25px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 14px;
+  text-align: center;
+
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.8s ease;
+}
+
+/* Logo */
+.logo {
+  width: 130px;
+  margin-bottom: 15px;
+}
+
+/* Headings */
+h2 {
+  margin: 15px 0 25px;
+  color: #0a4d9c;
+  font-weight: 600;
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* Buttons */
+.btn,
+button {
+  width: 100%;
+  padding: 11px;
+  margin-top: 12px;
+  border: none;
+  border-radius: 6px;
+  background: #0a4d9c;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn:hover,
+button:hover {
+  background: #083c78;
+}
+
+/* OR text */
+p {
+  margin: 15px 0;
+  color: #555;
+}
+
+/* Fade animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* ===== DASHBOARD STYLES ===== */
+
+.dashboard-container {
+  width: 100%;
+  padding: 40px;
+}
+
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.dashboard-header h1 {
+  color: #0a4d9c;
+  margin-bottom: 5px;
+}
+
+.dashboard-header p {
+  color: #555;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.dashboard-card {
+  background: white;
+  width: 260px;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+  text-align: center;
+}
+
+.dashboard-card h3 {
+  color: #0a4d9c;
+  margin-bottom: 10px;
+}
+
+.dashboard-card p {
+  color: #555;
+  font-size: 14px;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+.result-box {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  background: #eaf2ff;
+  border: 1px solid #0a4d9c;
+  color: #0a4d9c;
+}

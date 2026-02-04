@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <h2>Chartered Mentor</h2>
+      <button onclick="logout()">Logout</button>
+    </nav>
+
+    <div class="dashboard-container">
+      <h2 id="welcomeText">Welcome</h2>
+
+      <div class="dashboard-card">
+        <h3>Your Profile</h3>
+        <p><b>Student ID:</b> <span id="studentId"></span></p>
+        <p><b>Name:</b> <span id="studentName"></span></p>
+        <p><b>Email:</b> <span id="studentEmail"></span></p>
+      </div>
+      <div class="dashboard-card">
+        <h3>Mark Attendance</h3>
+
+        <button class="btn" onclick="markAttendance('IN')">Login (IN)</button>
+
+        <button
+          class="btn"
+          onclick="markAttendance('OUT')"
+          style="margin-left: 10px"
+        >
+          Logout (OUT)
+        </button>
+
+        <p
+          id="attendanceMessage"
+          style="margin-top: 10px; font-weight: bold"
+        ></p>
+      </div>
+
+      <div class="dashboard-card">
+        <h3>Today’s Attendance</h3>
+        <ul id="attendanceList"></ul>
+      </div>
+
+      <div class="dashboard-card">
+        <h3>Security</h3>
+        <button class="btn" onclick="goChangePassword()">
+          Change Password
+        </button>
+      </div>
+    </div>
+    <script>
+      const studentId = localStorage.getItem("studentId");
+
+      function scanQR(qrValue) {
+        fetch("http://localhost:5000/student/scan-qr", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ studentId, qrValue }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            alert(data.message);
+          })
+          .catch(() => alert("Server error"));
+      }
+    </script>
+  </body>
+</html>

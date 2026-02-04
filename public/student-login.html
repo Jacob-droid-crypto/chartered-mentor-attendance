@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Student Login</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="login-container">
+      <h2>Student Login</h2>
+
+      <input type="text" id="userId" placeholder="Student ID" />
+      <input type="password" id="password" placeholder="Password" />
+
+      <button class="btn" onclick="studentLogin()">Login</button>
+    </div>
+
+    <script>
+      function studentLogin() {
+        const userIdInput = document.getElementById("userId");
+        const passwordInput = document.getElementById("password");
+
+        if (!userIdInput || !passwordInput) {
+          alert("Login form error: input fields not found");
+          return;
+        }
+
+        const userId = userIdInput.value;
+        const password = passwordInput.value;
+
+        fetch("http://localhost:5000/student/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId, password }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (!data.studentId) {
+              alert(data.message || "Login failed");
+              return;
+            }
+
+            localStorage.setItem("studentId", data.studentId);
+            localStorage.setItem("studentName", data.name || "");
+            localStorage.setItem("studentEmail", data.email || "");
+
+            window.location.href = "student-dashboard.html";
+          })
+          .catch(() => alert("Server error"));
+      }
+    </script>
+  </body>
+</html>
