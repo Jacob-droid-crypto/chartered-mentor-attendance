@@ -1,5 +1,3 @@
-app.use(cors());
-app.use(express.json());
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -9,6 +7,9 @@ const User = require("./models/User");
 const Attendance = require("./models/Attendance");
 
 const app = express();
+
+app.use(cors());
+app.use(express.json());
 app.use(express.static("public"));
 
 // ================= HOURS CALCULATION LOGIC =================
