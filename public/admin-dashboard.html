@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <meta charset="UTF-8" />
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <h2>Chartered Mentor</h2>
+      <button onclick="logout()">Logout</button>
+    </nav>
+
+    <!-- MAIN DASHBOARD -->
+    <div class="dashboard-container">
+      <header class="dashboard-header">
+        <h1>Admin Dashboard</h1>
+        <p>Chartered Mentor Institute</p>
+      </header>
+
+      <!-- CARDS -->
+      <div class="card-container">
+        <!-- ADD STUDENT -->
+        <div class="dashboard-card" onclick="goTo('add-student.html')">
+          <h3>Add Students</h3>
+          <p>Create student IDs and passwords</p>
+        </div>
+
+        <!-- VIEW ATTENDANCE (FIXED STEP 4) -->
+        <div class="dashboard-card" onclick="goTo('view-attendance.html')">
+          <h3>View Attendance</h3>
+          <p>Check daily, weekly attendance</p>
+        </div>
+
+        <!-- REPORTS -->
+        <div class="dashboard-card" onclick="goTo('reports.html')">
+          <h3>Reports</h3>
+          <p>Study hours & performance</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+      function goTo(page) {
+        window.location.href = page;
+      }
+
+      function logout() {
+        localStorage.clear(); // clears admin session
+        window.location.href = "index.html";
+      }
+    </script>
+  </body>
+</html>

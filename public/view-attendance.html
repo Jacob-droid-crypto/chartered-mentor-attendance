@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Attendance Records</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <h2>Chartered Mentor</h2>
+      <button onclick="goBack()">Back</button>
+    </nav>
+
+    <div class="dashboard-container">
+      <h2>Attendance Records</h2>
+
+      <table border="1" cellpadding="10" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Student ID</th>
+            <th>Course</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Type (IN / OUT)</th>
+          </tr>
+        </thead>
+        <tbody id="attendanceTable">
+          <tr>
+            <td colspan="5">Loading...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      fetch("http://localhost:5000/admin/attendance")
+        .then((res) => res.json())
+        .then((data) => {
+          const table = document.getElementById("attendanceTable");
+          table.innerHTML = "";
+
+          if (data.length === 0) {
+            table.innerHTML =
+              "<tr><td colspan='5'>No attendance records</td></tr>";
+            return;
+          }
+
+          data.forEach((row) => {
+            const tr = document.createElement("tr");
+
+            tr.innerHTML = `
+              <td>${row.studentId || "-"}</td>
+              <td>${row.course || "-"}</td>
+              <td>${row.date || "-"}</td>
+              <td>${row.time || "-"}</td>
+              <td>${row.type || "-"}</td>
+            `;
+
+            table.appendChild(tr);
+          });
+        })
+        .catch(() => {
+          document.getElementById("attendanceTable").innerHTML =
+            "<tr><td colspan='5'>Failed to load attendance</td></tr>";
+        });
+
+      function goBack() {
+        window.location.href = "admin-dashboard.html";
+      }
+    </script>
+  </body>
+</html>

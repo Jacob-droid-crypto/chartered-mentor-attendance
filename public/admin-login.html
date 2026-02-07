@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="login-container">
+      <h2>Admin Login</h2>
+
+      <input type="text" id="adminId" placeholder="Admin ID" />
+      <input type="password" id="password" placeholder="Password" />
+
+      <button class="btn" onclick="adminLogin()">Login</button>
+    </div>
+
+    <!-- 🔽 Step 6.3 JavaScript goes HERE -->
+    <script>
+      function adminLogin() {
+        const userId = document.getElementById("adminId").value;
+        const password = document.getElementById("password").value;
+
+        fetch("http://localhost:5000/admin/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userId, password }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.message === "Login successful") {
+              window.location.href = "admin-dashboard.html";
+            } else {
+              alert(data.message);
+            }
+          })
+          .catch((error) => {
+            alert("Server error");
+            console.error(error);
+          });
+      }
+    </script>
+  </body>
+</html>

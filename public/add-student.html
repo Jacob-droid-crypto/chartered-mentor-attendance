@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Add Student</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="form-container">
+      <h2>Add Student</h2>
+
+      <input type="text" id="name" placeholder="Student Name" />
+      <input type="email" id="email" placeholder="Email" />
+
+      <!-- COURSE SELECTION -->
+      <select id="course">
+        <option value="">Select Course</option>
+        <option value="INT">INTER</option>
+        <option value="FIN">FINAL</option>
+      </select>
+
+      <button class="btn" onclick="addStudent()">Create Student</button>
+      <div id="resultBox" class="result-box" style="display: none"></div>
+
+      <br /><br />
+      <a href="admin-dashboard.html">⬅ Back to Dashboard</a>
+    </div>
+
+    <script>
+      function addStudent() {
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const course = document.getElementById("course").value;
+
+        if (!name || !email || !course) {
+          alert("Please fill all fields");
+          return;
+        }
+
+        fetch("http://localhost:5000/admin/add-student", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, email, course }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            const box = document.getElementById("resultBox");
+
+            if (data.userId) {
+              box.style.display = "block";
+              box.innerHTML = `
+      <h3>Student Created Successfully</h3>
+      <p><b>Student ID:</b> ${data.userId}</p>
+      <p><b>Password:</b> ${data.password}</p>
+    `;
+            } else {
+              box.style.display = "block";
+              box.innerHTML = `<p style="color:red;">${data.message}</p>`;
+            }
+          })
+
+          .catch(() => {
+            alert("Server error");
+          });
+      }
+    </script>
+  </body>
+</html>
